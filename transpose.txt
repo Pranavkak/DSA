@@ -1,0 +1,29 @@
+#include <iostream>
+
+void transpose(int mat[][3], int rows, int cols) {
+    int result[cols][rows];
+    for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < rows; j++) {
+            result[i][j] = mat[j][i];
+        }
+    }
+
+    // Print the transposed matrix
+    for (int i = 0; i < cols; i++) {
+        for (int j = 0; j < rows; j++) {
+            std::cout << result[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+int main() {
+    int mat[][3] = {{1, 2, 3},
+                    {4, 5, 6}};
+    int rows = sizeof(mat) / sizeof(mat[0]);
+    int cols = sizeof(mat[0]) / sizeof(mat[0][0]);
+
+    transpose(mat, rows, cols);
+
+    return 0;
+}

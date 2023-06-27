@@ -1,0 +1,38 @@
+#include <iostream>
+
+void sumEveryRowAndColumn(int arr[][3], int rows, int cols) {
+    int rowSum[rows] = {0};
+    int colSum[cols] = {0};
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            rowSum[i] += arr[i][j];
+            colSum[j] += arr[i][j];
+        }
+    }
+
+    // Print the sum of every row
+    std::cout << "Sum of every row: ";
+    for (int i = 0; i < rows; i++) {
+        std::cout << rowSum[i] << " ";
+    }
+    std::cout << std::endl;
+
+    // Print the sum of every column
+    std::cout << "Sum of every column: ";
+    for (int i = 0; i < cols; i++) {
+        std::cout << colSum[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+int main() {
+    int arr[][3] = {{1, 2, 3},
+                    {4, 5, 6}};
+    int rows = sizeof(arr) / sizeof(arr[0]);
+    int cols = sizeof(arr[0]) / sizeof(arr[0][0]);
+
+    sumEveryRowAndColumn(arr, rows, cols);
+
+    return 0;
+}

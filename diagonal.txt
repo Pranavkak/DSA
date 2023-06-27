@@ -1,0 +1,64 @@
+#include <iostream>
+using namespace std;
+
+class DiagonalMatrix {
+private:
+    int size;
+    int* elements;
+
+public:
+    DiagonalMatrix(int n) {
+        size = n;
+        elements = new int[size];
+    }
+
+    void setValue(int i, int j, int value) {
+        if (i == j)
+            elements[i - 1] = value;
+    }
+
+    int getValue(int i, int j) {
+        if (i == j)
+            return elements[i - 1];
+        else
+            return 0;
+    }
+
+    void display() {
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (i == j)
+                    cout << elements[i] << " ";
+                else
+                    cout << "0 ";
+            }
+            cout << endl;
+        }
+    }
+
+    ~DiagonalMatrix() {
+        delete[] elements;
+    }
+};
+
+int main() {
+    int size;
+    cout << "Enter the size of the diagonal matrix: ";
+    cin >> size;
+
+    DiagonalMatrix matrix(size);
+
+    cout << "Enter the elements of the diagonal matrix:\n";
+    for (int i = 1; i <= size; i++) {
+        for (int j = 1; j <= size; j++) {
+            int value;
+            cin >> value;
+            matrix.setValue(i, j, value);
+        }
+    }
+
+    cout << "\nThe diagonal matrix is:\n";
+    matrix.display();
+
+    return 0;
+}

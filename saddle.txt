@@ -1,0 +1,41 @@
+#include <iostream>
+
+void findSaddlePoint(int arr[][3], int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        int minRow = arr[i][0];
+        int colIndex = 0;
+
+        for (int j = 1; j < cols; j++) {
+            if (arr[i][j] < minRow) {
+                minRow = arr[i][j];
+                colIndex = j;
+            }
+        }
+
+        int k;
+        for (k = 0; k < rows; k++) {
+            if (arr[k][colIndex] > minRow)
+                break;
+        }
+
+        if (k == rows) {
+            std::cout << "Saddle Point: " << minRow << std::endl;
+            return;
+        }
+    }
+
+    std::cout << "No saddle point found" << std::endl;
+}
+
+int main() {
+    int arr[][3] = {{1, 2, 3},
+                    {4, 5, 6},
+                    {7, 8, 9}};
+
+    int rows = sizeof(arr) / sizeof(arr[0]);
+    int cols = sizeof(arr[0]) / sizeof(arr[0][0]);
+
+    findSaddlePoint(arr, rows, cols);
+
+    return 0;
+}

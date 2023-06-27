@@ -1,0 +1,31 @@
+#include <iostream>
+
+void deleteDuplicateArray(int arr[], int size) {
+    int length = 0;
+    for (int i = 0; i < size; i++) {
+        bool isDuplicate = false;
+        for (int j = 0; j < length; j++) {
+            if (arr[i] == arr[j]) {
+                isDuplicate = true;
+                break;
+            }
+        }
+        if (!isDuplicate) {
+            arr[length] = arr[i];
+            length++;
+        }
+    }
+    // Print the unique array
+    for (int i = 0; i < length; i++) {
+        std::cout << arr[i] << " ";
+    }
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 2, 4, 5, 1};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    deleteDuplicateArray(arr, size);
+
+    return 0;
+}

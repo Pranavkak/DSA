@@ -1,0 +1,50 @@
+#include <iostream>
+
+class DiagonalMatrix {
+private:
+    int* arr;
+    int size;
+
+public:
+    DiagonalMatrix(int size) {
+        this->size = size;
+        arr = new int[size];
+    }
+
+    void set(int i, int j, int value) {
+        if (i == j)
+            arr[i - 1] = value;
+    }
+
+    int get(int i, int j) {
+        if (i == j)
+            return arr[i - 1];
+        else
+            return 0;
+    }
+
+    void display() {
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                std::cout << get(i, j) << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    ~DiagonalMatrix() {
+        delete[] arr;
+    }
+};
+
+int main() {
+    DiagonalMatrix matrix(3);
+
+    matrix.set(1, 1, 1);
+    matrix.set(2, 2, 2);
+    matrix.set(3, 3, 3);
+
+    matrix.display();
+
+    return 0;
+}

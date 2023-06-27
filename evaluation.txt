@@ -1,0 +1,46 @@
+#include <iostream>
+#include <stack>
+#include <string>
+
+int evaluatePostfixExpression(const std::string& postfixExpression) {
+    std::stack<int> stk;
+
+    for (char ch : postfixExpression) {
+        if (isdigit(ch)) {
+            stk.push(ch - '0');
+        } else {
+            int operand2 = stk.top();
+            stk.pop();
+            int operand1 = stk.top();
+            stk.pop();
+
+            switch (ch) {
+                case '+':
+                    stk.push(operand1 + operand2);
+                    break;
+                case '-':
+                    stk.push(operand1 - operand2);
+                    break;
+                case '*':
+                    stk.push(operand1 * operand2);
+                    break;
+                case '/':
+                    stk.push(operand1 / operand2);
+                    break;
+            }
+        }
+    }
+
+    return stk.top();
+}
+
+int main() {
+    std::string postfixExpression;
+    std::cout << "Enter a postfix expression: ";
+    std::getline(std::cin, postfixExpression);
+
+    int result = evaluatePostfixExpression(postfixExpression);
+    std::cout << "Result: " << result << std::endl;
+
+    return 0;
+}

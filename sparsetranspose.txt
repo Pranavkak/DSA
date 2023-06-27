@@ -1,0 +1,54 @@
+#include <iostream>
+
+struct SparseMatrix {
+    int row;
+    int col;
+    int value;
+};
+
+void transpose(SparseMatrix arr[], int size) {
+    SparseMatrix result[size];
+    int count[size] = {0};
+
+    for (int i = 0; i < size; i++) {
+        count[arr[i].col]++;
+    }
+
+    int startIndex[size] = {0};
+    int temp;
+
+    for (int i = 1; i < size; i++) {
+        temp = count[i - 1];
+        count[i - 1] = startIndex[i];
+        startIndex[i] = startIndex[i] + temp;
+    }
+
+    for (int i = 0; i < size; i++) {
+        int j = count[arr[i].col];
+        result[j].row = arr[i].col;
+        result[j].col = arr[i].row;
+        result[j].value = arr[i].value;
+        count[arr[i].col]++;
+    }
+
+    std::cout << "Transpose: " << std::endl;
+    for (int i = 0; i < size; i++) {
+        std::cout << result[i].row << " " << result[i].col << " " << result[i].value << std::endl;
+    }
+}
+
+int main() {
+    SparseMatrix arr[] = {{0, 1, 3},
+                          {0, 4, 7},
+                          {1, 0, 2},
+                          {1, 3, 8},
+                          {2, 1, 5},
+                          {3, 0, 9},
+                          {3, 3, 1}};
+
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    transpose(arr, size);
+
+    return 0;
+}

@@ -1,0 +1,53 @@
+#include <iostream>
+
+class LowerTriangularMatrix {
+private:
+    int* arr;
+    int size;
+
+public:
+    LowerTriangularMatrix(int size) {
+        this->size = size;
+        arr = new int[size * (size + 1) / 2];
+    }
+
+    void set(int i, int j, int value) {
+        if (i >= j)
+            arr[i * (i - 1) / 2 + j - 1] = value;
+    }
+
+    int get(int i, int j) {
+        if (i >= j)
+            return arr[i * (i - 1) / 2 + j - 1];
+        else
+            return 0;
+    }
+
+    void display() {
+        for (int i = 1; i <= size; i++) {
+            for (int j = 1; j <= size; j++) {
+                std::cout << get(i, j) << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    ~LowerTriangularMatrix() {
+        delete[] arr;
+    }
+};
+
+int main() {
+    LowerTriangularMatrix matrix(3);
+
+    matrix.set(1, 1, 1);
+    matrix.set(2, 1, 2);
+    matrix.set(2, 2, 3);
+    matrix.set(3, 1, 4);
+    matrix.set(3, 2, 5);
+    matrix.set(3, 3, 6);
+
+    matrix.display();
+
+    return 0;
+}

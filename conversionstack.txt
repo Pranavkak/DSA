@@ -1,0 +1,61 @@
+#include <iostream>
+#include <stack>
+#include <string>
+
+int getPrecedence(char ch) {
+    switch (ch) {
+        case '+':
+        case '-':
+            return 1;
+        case '*':
+        case '/':
+            return 2;
+        case '^':
+            return 3;
+        default:
+            return -1;
+    }
+}
+
+std::string infixToPostfix(const std::string& infixExpression) {
+    std::string postfixExpression = "";
+    std::stack<char> stk;
+
+    for (char ch : infixExpression) {
+        if ((ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')) {
+            postfixExpression += ch;
+        } else if (ch == '(') {
+            stk.push(ch);
+        } else if (ch == ')') {
+            while (!stk.empty() && stk.top() != '(') {
+                postfixExpression += stk.top();
+                stk.pop();
+            }
+            stk.pop();  // Discard the opening parenthesis
+        } else {
+            while (!stk.empty() && getPrecedence(ch) <= getPrecedence(stk.top())) {
+                postfixExpression += stk.top();
+                stk.pop();
+            }
+            stk.push(ch);
+        }
+    }
+
+    while (!stk.empty()) {
+        postfixExpression += stk.top();
+        stk.pop();
+    }
+
+    return postfixExpression;
+}
+
+int main() {
+    std::string infixExpression;
+    std::cout << "Enter an infix expression: ";
+    std::getline(std::cin, infixExpression);
+
+    std::string postfixExpression = infixToPostfix(infixExpression);
+    std::cout << "Postfix Expression: " << postfixExpression << std::endl;
+
+    return 0;
+}

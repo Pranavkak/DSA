@@ -1,0 +1,79 @@
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* createNode(int data) {
+    Node* newNode = new Node();
+    if (newNode) {
+        newNode->data = data;
+        newNode->next = nullptr;
+    }
+    return newNode;
+}
+
+void insertNode(Node** head, int data) {
+    if (*head == nullptr) {
+        *head = createNode(data);
+        return;
+    }
+
+    Node* temp = *head;
+    while (temp->next) {
+        temp = temp->next;
+    }
+    temp->next = createNode(data);
+}
+
+void displayList(Node* head) {
+    if (head == nullptr) {
+        std::cout << "List is empty." << std::endl;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp) {
+        std::cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+    std::cout << "nullptr" << std::endl;
+}
+
+Node* findMiddle(Node* head) {
+    if (head == nullptr)
+        return nullptr;
+
+    Node* slowPtr = head;
+    Node* fastPtr = head;
+
+    while (fastPtr != nullptr && fastPtr->next != nullptr) {
+        slowPtr = slowPtr->next;
+        fastPtr = fastPtr->next->next;
+    }
+
+    return slowPtr;
+}
+
+int main() {
+    Node* head = nullptr;
+
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+
+    std::cout << "Original Linked List: ";
+    displayList(head);
+
+    Node* middle = findMiddle(head);
+
+    if (middle != nullptr)
+        std::cout << "Middle element: " << middle->data << std::endl;
+    else
+        std::cout << "Middle element not found." << std::endl;
+
+    return 0;
+}

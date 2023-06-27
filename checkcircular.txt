@@ -1,0 +1,88 @@
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* createNode(int data) {
+    Node* newNode = new Node();
+    if (newNode) {
+        newNode->data = data;
+        newNode->next = nullptr;
+    }
+    return newNode;
+}
+
+void insertNode(Node** head, int data) {
+    if (*head == nullptr) {
+        *head = createNode(data);
+        return;
+    }
+
+    Node* temp = *head;
+    while (temp->next) {
+        temp = temp->next;
+    }
+    temp->next = createNode(data);
+}
+
+void displayList(Node* head) {
+    if (head == nullptr) {
+        std::cout << "List is empty." << std::endl;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp) {
+        std::cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+    std::cout << "nullptr" << std::endl;
+}
+
+bool isCircular(Node* head) {
+    if (head == nullptr)
+        return false;
+
+    Node* temp = head->next;
+    while (temp != nullptr && temp != head) {
+        temp = temp->next;
+    }
+
+    return (temp == head);
+}
+
+int main() {
+    Node* head = nullptr;
+
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 3);
+    insertNode(&head, 4);
+    insertNode(&head, 5);
+
+    std::cout << "Linked List: ";
+    displayList(head);
+
+    bool circular = isCircular(head);
+    if (circular)
+        std::cout << "The Linked List is circular." << std::endl;
+    else
+        std::cout << "The Linked List is not circular." << std::endl;
+
+    // Creating a circular linked list
+    Node* temp = head;
+    while (temp->next) {
+        temp = temp->next;
+    }
+    temp->next = head;
+
+    circular = isCircular(head);
+    if (circular)
+        std::cout << "The Linked List is circular." << std::endl;
+    else
+        std::cout << "The Linked List is not circular." << std::endl;
+
+    return 0;
+}

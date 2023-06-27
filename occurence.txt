@@ -1,0 +1,113 @@
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* next;
+};
+
+Node* createNode(int data) {
+    Node* newNode = new Node();
+    if (newNode) {
+        newNode->data = data;
+        newNode->next = nullptr;
+    }
+    return newNode;
+}
+
+void insertNode(Node** head, int data) {
+    if (*head == nullptr) {
+        *head = createNode(data);
+        return;
+    }
+
+    Node* temp = *head;
+    while (temp->next) {
+        temp = temp->next;
+    }
+    temp->next = createNode(data);
+}
+
+void displayList(Node* head) {
+    if (head == nullptr) {
+        std::cout << "List is empty." << std::endl;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp) {
+        std::cout << temp->data << " -> ";
+        temp = temp->next;
+    }
+    std::cout << "nullptr" << std::endl;
+}
+
+int countOccurrences(Node* head, int key) {
+    int count = 0;
+    Node* current = head;
+
+    while (current != nullptr) {
+        if (current->data == key) {
+            count++;
+        }
+        current = current->next;
+    }
+
+    return count;
+}
+
+void deleteOccurrences(Node** head, int key) {
+    if (*head == nullptr) {
+        std::cout << "List is empty." << std::endl;
+        return;
+    }
+
+    Node* current = *head;
+    Node* previous = nullptr;
+
+    while (current != nullptr && current->data == key) {
+        *head = current->next;
+        delete current;
+        current = *head;
+    }
+
+    while (current != nullptr) {
+        while (current != nullptr && current->data != key) {
+            previous = current;
+            current = current->next;
+        }
+
+        if (current == nullptr) {
+            return;
+        }
+
+        previous->next = current->next;
+        delete current;
+        current = previous->next;
+    }
+}
+
+int main() {
+    Node* head = nullptr;
+
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 1);
+    insertNode(&head, 2);
+    insertNode(&head, 1);
+    insertNode(&head, 3);
+    insertNode(&head, 1);
+
+    std::cout << "Original Linked List: ";
+    displayList(head);
+
+    int key = 1;
+    int count = countOccurrences(head, key);
+    std::cout << "Number of occurrences of " << key << ": " << count << std::endl;
+
+    deleteOccurrences(&head, key);
+
+    std::cout << "Linked List after deletion of occurrences of " << key << ": ";
+    displayList(head);
+
+    return 0;
+}

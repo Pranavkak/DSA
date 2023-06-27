@@ -1,0 +1,29 @@
+#include <iostream>
+#include <stack>
+#include <string>
+
+std::string reverseString(const std::string& str) {
+    std::stack<char> stk;
+    for (char ch : str) {
+        stk.push(ch);
+    }
+
+    std::string reversedStr = "";
+    while (!stk.empty()) {
+        reversedStr += stk.top();
+        stk.pop();
+    }
+
+    return reversedStr;
+}
+
+int main() {
+    std::string str;
+    std::cout << "Enter a string: ";
+    std::cin >> str;
+
+    std::string reversedStr = reverseString(str);
+    std::cout << "Reversed String: " << reversedStr << std::endl;
+
+    return 0;
+}

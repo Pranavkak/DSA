@@ -1,0 +1,34 @@
+#include <iostream>
+
+int binarySearch(int arr[], int size, int key) {
+    int start = 0;
+    int end = size - 1;
+
+    while (start <= end) {
+        int mid = start + (end - start) / 2;
+
+        if (arr[mid] == key)
+            return mid;
+        else if (arr[mid] < key)
+            start = mid + 1;
+        else
+            end = mid - 1;
+    }
+
+    return -1; // Key not found
+}
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5};
+    int size = sizeof(arr) / sizeof(arr[0]);
+    int key = 3;
+
+    int result = binarySearch(arr, size, key);
+
+    if (result == -1)
+        std::cout << "Key not found." << std::endl;
+    else
+        std::cout << "Key found at index " << result << "." << std::endl;
+
+    return 0;
+}

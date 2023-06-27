@@ -1,0 +1,93 @@
+#include <iostream>
+
+struct Node {
+    char data;
+    Node* prev;
+    Node* next;
+};
+
+Node* createNode(char data) {
+    Node* newNode = new Node();
+    if (newNode) {
+        newNode->data = data;
+        newNode->prev = nullptr;
+        newNode->next = nullptr;
+    }
+    return newNode;
+}
+
+void insertNode(Node** head, char data) {
+    Node* newNode = createNode(data);
+
+    if (*head == nullptr) {
+        *head = newNode;
+        return;
+    }
+
+    Node* temp = *head;
+    while (temp->next) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+void displayList(Node* head) {
+    if (head == nullptr) {
+        std::cout << "List is empty." << std::endl;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp) {
+        std::cout << temp->data << " <-> ";
+        temp = temp->next;
+    }
+    std::cout << "nullptr" << std::endl;
+}
+
+bool isPalindrome(Node* head) {
+    if (head == nullptr)
+        return false;
+
+    Node* start = head;
+    Node* end = head;
+    while (end->next) {
+        end = end->next;
+    }
+
+    while (start != end) {
+        if (start->data != end->data)
+            return false;
+
+        start = start->next;
+        end = end->prev;
+
+        if (start == end)
+            break;
+    }
+
+    return true;
+}
+
+int main() {
+    Node* head = nullptr;
+
+    insertNode(&head, 'a');
+    insertNode(&head, 'b');
+    insertNode(&head, 'c');
+    insertNode(&head, 'c');
+    insertNode(&head, 'b');
+    insertNode(&head, 'a');
+
+    std::cout << "Doubly Linked List: ";
+    displayList(head);
+
+    bool palindrome = isPalindrome(head);
+    if (palindrome)
+        std::cout << "The Linked List is a palindrome." << std::endl;
+    else
+        std::cout << "The Linked List is not a palindrome." << std::endl;
+
+    return 0;
+}

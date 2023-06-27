@@ -1,0 +1,94 @@
+#include <iostream>
+
+struct Node {
+    int data;
+    Node* prev;
+    Node* next;
+};
+
+Node* createNode(int data) {
+    Node* newNode = new Node();
+    if (newNode) {
+        newNode->data = data;
+        newNode->prev = nullptr;
+        newNode->next = nullptr;
+    }
+    return newNode;
+}
+
+void insertNode(Node** head, int data) {
+    Node* newNode = createNode(data);
+
+    if (*head == nullptr) {
+        *head = newNode;
+        return;
+    }
+
+    Node* temp = *head;
+    while (temp->next) {
+        temp = temp->next;
+    }
+    temp->next = newNode;
+    newNode->prev = temp;
+}
+
+void displayList(Node* head) {
+    if (head == nullptr) {
+        std::cout << "List is empty." << std::endl;
+        return;
+    }
+
+    Node* temp = head;
+    while (temp) {
+        std::cout << temp->data << " <-> ";
+        temp = temp->next;
+    }
+    std::cout << "nullptr" << std::endl;
+}
+
+int getSize(Node* head) {
+    int count = 0;
+    Node* temp = head;
+    while (temp) {
+        count++;
+        temp = temp->next;
+    }
+    return count;
+}
+
+int main() {
+    Node* dllHead = nullptr;
+    Node* cllHead = nullptr;
+
+    // Doubly Linked List
+    insertNode(&dllHead, 1);
+    insertNode(&dllHead, 2);
+    insertNode(&dllHead, 3);
+    insertNode(&dllHead, 4);
+    insertNode(&dllHead, 5);
+
+    std::cout << "Doubly Linked List: ";
+    displayList(dllHead);
+    int dllSize = getSize(dllHead);
+    std::cout << "Size of Doubly Linked List: " << dllSize << std::endl;
+
+    // Circular Linked List
+    insertNode(&cllHead, 1);
+    insertNode(&cllHead, 2);
+    insertNode(&cllHead, 3);
+    insertNode(&cllHead, 4);
+    insertNode(&cllHead, 5);
+
+    Node* temp = cllHead;
+    while (temp->next) {
+        temp = temp->next;
+    }
+    temp->next = cllHead;  // Making it circular
+
+    std::cout << "Circular Linked List: ";
+    displayList(cllHead);
+    int cllSize = getSize(cllHead);
+    std::cout << "Size of Circular Linked List: " << cllSize << std::endl;
+
+    return 0;
+}
