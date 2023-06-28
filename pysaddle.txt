@@ -1,0 +1,18 @@
+def find_saddle_point(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+
+    for i in range(rows):
+        row_min = min(matrix[i])
+        min_indices = [j for j, val in enumerate(matrix[i]) if val == row_min]
+        for index in min_indices:
+            col_vals = [matrix[k][index] for k in range(rows)]
+            if matrix[i][index] == max(col_vals):
+                return matrix[i][index]
+
+    return None
+
+# Sample data
+matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+result = find_saddle_point(matrix)
+print(result)

@@ -1,0 +1,14 @@
+def sparse_transpose(matrix):
+    transposed = []
+
+    for col in range(len(matrix[0])):
+        for row in range(len(matrix)):
+            if matrix[row][col] != 0:
+                transposed.append([col, row, matrix[row][col]])
+
+    return transposed
+
+# Sample data
+matrix = [[0, 0, 3], [4, 5, 0], [0, 6, 0]]
+result = sparse_transpose(matrix)
+print(result)

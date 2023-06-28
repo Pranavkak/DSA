@@ -1,0 +1,11 @@
+def delete_duplicate_array(arr):
+    unique_arr = []
+    for num in arr:
+        if num not in unique_arr:
+            unique_arr.append(num)
+    return unique_arr
+
+# Sample data
+arr = [1, 2, 3, 4, 3, 2, 1]
+result = delete_duplicate_array(arr)
+print(result)

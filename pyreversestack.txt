@@ -1,0 +1,34 @@
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, item):
+        self.stack.append(item)
+
+    def pop(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack.pop()
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    def display(self):
+        print("Stack:", self.stack)
+
+def reverse_string(string):
+    stack = Stack()
+    for char in string:
+        stack.push(char)
+
+    reversed_string = ""
+    while not stack.is_empty():
+        reversed_string += stack.pop()
+
+    return reversed_string
+
+# Sample data
+string = "data structure"
+reversed_string = reverse_string(string)
+print(reversed_string)

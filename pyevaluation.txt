@@ -1,0 +1,40 @@
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, item):
+        self.stack.append(item)
+
+    def pop(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack.pop()
+
+def evaluate_postfix(expression):
+    stack = Stack()
+
+    for char in expression:
+        if char.isdigit():
+            stack.push(int(char))
+        else:
+            operand2 = stack.pop()
+            operand1 = stack.pop()
+
+            if char == '+':
+                result = operand1 + operand2
+            elif char == '-':
+                result = operand1 - operand2
+            elif char == '*':
+                result = operand1 * operand2
+            elif char == '/':
+                result = operand1 / operand2
+
+            stack.push(result)
+
+    return stack.pop()
+
+# Sample data
+postfix_expression = "231*+9-"
+result = evaluate_postfix(postfix_expression)
+print(result)

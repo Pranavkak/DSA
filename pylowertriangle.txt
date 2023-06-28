@@ -1,0 +1,14 @@
+def store_lower_triangle(matrix):
+    size = len(matrix)
+    lower_triangle = []
+
+    for i in range(size):
+        for j in range(i + 1):
+            lower_triangle.append(matrix[i][j])
+
+    return lower_triangle
+
+# Sample data
+matrix = [[1, 0, 0], [2, 3, 0], [4, 5, 6]]
+result = store_lower_triangle(matrix)
+print(result)

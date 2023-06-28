@@ -1,0 +1,47 @@
+class Stack:
+    def __init__(self):
+        self.stack = []
+        self.max_size = 5
+
+    def push(self, item):
+        if len(self.stack) == self.max_size:
+            print("Stack Overflow")
+        else:
+            self.stack.append(item)
+            print("Item pushed:", item)
+
+    def pop(self):
+        if len(self.stack) == 0:
+            print("Stack Underflow")
+        else:
+            item = self.stack.pop()
+            print("Item popped:", item)
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    def is_full(self):
+        return len(self.stack) == self.max_size
+
+    def display(self):
+        print("Stack:", self.stack)
+
+    def peek(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack[-1]
+
+# Sample data
+stack = Stack()
+stack.push(1)
+stack.push(2)
+stack.push(3)
+stack.display()
+
+stack.pop()
+stack.display()
+
+print("Is empty:", stack.is_empty())
+print("Is full:", stack.is_full())
+print("Peek:", stack.peek())

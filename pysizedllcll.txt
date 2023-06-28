@@ -1,0 +1,73 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+class DoublyLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def insert(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+        else:
+            curr_node = self.head
+            while curr_node.next:
+                curr_node = curr_node.next
+            curr_node.next = new_node
+            new_node.prev = curr_node
+
+    def size(self):
+        count = 0
+        curr_node = self.head
+        while curr_node:
+            count += 1
+            curr_node = curr_node.next
+
+        return count
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def insert(self, data):
+        new_node = Node(data)
+        if self.head is None:
+            self.head = new_node
+            self.head.next = self.head
+            self.head.prev = self.head
+        else:
+            curr_node = self.head
+            while curr_node.next != self.head:
+                curr_node = curr_node.next
+            curr_node.next = new_node
+            new_node.prev = curr_node
+            new_node.next = self.head
+            self.head.prev = new_node
+
+    def size(self):
+        count = 0
+        curr_node = self.head
+        while True:
+            count += 1
+            curr_node = curr_node.next
+            if curr_node == self.head:
+                break
+
+        return count
+
+# Doubly Linked List
+doubly_linked_list = DoublyLinkedList()
+doubly_linked_list.insert(1)
+doubly_linked_list.insert(2)
+doubly_linked_list.insert(3)
+print("Doubly Linked List Size:", doubly_linked_list.size())
+
+# Circular Linked List
+circular_linked_list = CircularLinkedList()
+circular_linked_list.insert(1)
+circular_linked_list.insert(2)
+circular_linked_list.insert(3)
+print("Circular Linked List Size:", circular_linked_list.size())

@@ -1,0 +1,42 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+        self.prev = None
+
+def check_palindrome(head):
+    if not head:
+        return False
+
+    start = head
+    end = head
+
+    while end.next:
+        end = end.next
+
+    while start != end:
+        if start.data != end.data:
+            return False
+        start = start.next
+        end = end.prev
+
+    return True
+
+# Sample data
+head = Node('a')
+node2 = Node('b')
+node3 = Node('c')
+node4 = Node('b')
+node5 = Node('a')
+
+head.next = node2
+node2.prev = head
+node2.next = node3
+node3.prev = node2
+node3.next = node4
+node4.prev = node3
+node4.next = node5
+node5.prev = node4
+
+result = check_palindrome(head)
+print(result)

@@ -1,0 +1,19 @@
+def store_tri_diagonal_matrix(matrix):
+    size = len(matrix)
+    tri_diag_elements = []
+
+    for i in range(size):
+        tri_diag_elements.append(matrix[i][i])
+
+        if i > 0:
+            tri_diag_elements.append(matrix[i][i - 1])
+
+        if i < size - 1:
+            tri_diag_elements.append(matrix[i][i + 1])
+
+    return tri_diag_elements
+
+# Sample data
+matrix = [[1, 2, 0, 0], [3, 4, 5, 0], [0, 6, 7, 8], [0, 0, 9, 10]]
+result = store_tri_diagonal_matrix(matrix)
+print(result)

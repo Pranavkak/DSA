@@ -1,0 +1,14 @@
+def store_upper_triangle(matrix):
+    size = len(matrix)
+    upper_triangle = []
+
+    for i in range(size):
+        for j in range(i, size):
+            upper_triangle.append(matrix[i][j])
+
+    return upper_triangle
+
+# Sample data
+matrix = [[1, 2, 3], [0, 4, 5], [0, 0, 6]]
+result = store_upper_triangle(matrix)
+print(result)

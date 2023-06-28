@@ -1,0 +1,13 @@
+def find_missing_number(arr):
+    n = len(arr)
+    total = (n + 1) * (n + 2) // 2
+
+    for num in arr:
+        total -= num
+
+    return total
+
+# Sample data
+arr = [1, 2, 3, 5]
+result = find_missing_number(arr)
+print(result)

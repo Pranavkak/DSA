@@ -1,0 +1,40 @@
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, item):
+        self.stack.append(item)
+
+    def pop(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack.pop()
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+def check_balanced_parentheses(expression):
+    stack = Stack()
+
+    for char in expression:
+        if char in ['(', '{', '[']:
+            stack.push(char)
+        elif char in [')', '}', ']']:
+            if stack.is_empty():
+                return False
+            top = stack.pop()
+            if (char == ')' and top != '(') or (char == '}' and top != '{') or (char == ']' and top != '['):
+                return False
+
+    return stack.is_empty()
+
+# Sample data
+expression1 = "2 * ( ( 4/2 ) + 5 )"
+expression2 = "2 * ( ( 4/2 ) + 5"
+
+result1 = check_balanced_parentheses(expression1)
+result2 = check_balanced_parentheses(expression2)
+
+print(result1)
+print(result2)

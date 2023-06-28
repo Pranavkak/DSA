@@ -1,0 +1,58 @@
+class Stack:
+    def __init__(self):
+        self.stack = []
+
+    def push(self, item):
+        self.stack.append(item)
+
+    def pop(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack.pop()
+
+    def is_empty(self):
+        return len(self.stack) == 0
+
+    def peek(self):
+        if len(self.stack) == 0:
+            return None
+        else:
+            return self.stack[-1]
+
+def infix_to_postfix(expression):
+    stack = Stack()
+    postfix = ""
+
+    precedence = {
+        "+": 1,
+        "-": 1,
+        "*": 2,
+        "/": 2,
+        "^": 3
+    }
+
+    for char in expression:
+        if char.isalpha() or char.isdigit():
+            postfix += char
+        elif char in ['+', '-', '*', '/', '^']:
+            while (not stack.is_empty() and precedence[char] <= precedence[stack.peek()]):
+                postfix += stack.pop()
+            stack.push(char)
+        elif char == '(':
+            stack.push(char)
+        elif char == ')':
+            top = stack.pop()
+            while top != '(':
+                postfix += top
+                top = stack.pop()
+
+    while not stack.is_empty():
+        postfix += stack.pop()
+
+    return postfix
+
+# Sample data
+infix_expression = "a+b*(c^d-e)^(f+g*h)-i"
+postfix_expression = infix_to_postfix(infix_expression)
+print(postfix_expression)

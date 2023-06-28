@@ -1,0 +1,54 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+def split_circular_linked_list(head):
+    if not head:
+        return None, None
+
+    slow_ptr = head
+    fast_ptr = head
+
+    while fast_ptr.next != head and fast_ptr.next.next != head:
+        slow_ptr = slow_ptr.next
+        fast_ptr = fast_ptr.next.next
+
+    if fast_ptr.next.next == head:
+        fast_ptr = fast_ptr.next
+
+    head1 = head
+    if head.next != head:
+        head2 = slow_ptr.next
+    slow_ptr.next = head1
+
+    fast_ptr.next = head2
+
+    return head1, head2
+
+# Sample data
+head = Node(1)
+node2 = Node(2)
+node3 = Node(3)
+node4 = Node(4)
+node5 = Node(5)
+
+head.next = node2
+node2.next = node3
+node3.next = node4
+node4.next = node5
+node5.next = head
+
+head1, head2 = split_circular_linked_list(head)
+
+curr_node = head1
+while curr_node:
+    print(curr_node.data, end=" ")
+    curr_node = curr_node.next
+print()
+
+curr_node = head2
+while curr_node != head1:
+    print(curr_node.data, end=" ")
+    curr_node = curr_node.next
+print()
